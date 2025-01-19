@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gC</title>
 
+</head>
+<body>
+  
+  <div class="code" id="cD">.</div>
+  <button onclick="gC()">GC</button>
+  <button onclick="cC()">CC</button>
+ 
+
+  <script>
+    function gC() {
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const numbers = "0123456789";
+      
+      let code = "";
+      // Add first letter
+      code += letters[Math.floor(Math.random() * letters.length)];
+      // Add 10 random characters (letters or numbers)
+      for (let i = 0; i < 10; i++) {
+        const isLetter = Math.random() < 0.5;
+        code += isLetter 
+          ? letters[Math.floor(Math.random() * letters.length)] 
+          : numbers[Math.floor(Math.random() * numbers.length)];
+      }
+      // Add last number
+      code += numbers[Math.floor(Math.random() * numbers.length)];
+      
+     
+      document.getElementById("cD").textContent = code;
+
+      document.getElementById("cM").style.display = "none";
+    }
+
+    function cC() {
+      const code = document.getElementById("cD").textContent;
+      if (code !== ".") {
+        navigator.clipboard.writeText(code).then(() => {
+          const message = document.getElementById("cM");
+          message.style.display = "block";
+          setTimeout(() => message.style.display = "none", 2);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
